@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Google Java Style Guide</title>
+<title>Apex Style Guide</title>
 <link rel="stylesheet" type="text/css" href="javaguide.css">
 <script language="javascript" src="include/styleguide.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="https://www.google.com/favicon.ico" />
@@ -10,16 +10,15 @@
 </head>
 <body onload="initStyleGuide();">
 <div id="content">
-<h1>Google Java Style Guide</h1>
+<h1>Aepx Style Guide</h1>
 <div class="vertical_toc" id="tocDiv"></div>
 
 <div class="main_body">
 
 <h2 id="s1-introduction">1 Introduction</h2>
 
-<p>This document serves as the <strong>complete</strong> definition of Google's coding standards for
-source code in the Java&#8482; Programming Language. A Java source file is described as being <em>in
-Google Style</em> if and only if it adheres to the rules herein.</p>
+<p>This document serves as the <strong>complete</strong> definition of coding standards for
+source code in the Apex Programming Language. An Apex source file is described as being <em>in Apex Style</em> if and only if it adheres to the rules herein.</p>
 
 <p>Like other programming style guides, the issues covered span not only aesthetic issues of
 formatting, but other types of conventions or coding standards as well. However, this document
@@ -42,7 +41,7 @@ avoids giving <em>advice</em> that isn't clearly enforceable (whether by human o
   and comments.
 
   </li><li>The term <em>comment</em> always refers to <em>implementation</em> comments. We do not
-  use the phrase "documentation comments", instead using the common term "Javadoc."</li>
+  use the phrase "documentation comments", instead using the common term "ApexDoc."</li>
 </ol>
 
 <p>Other "terminology notes" will appear occasionally throughout the document.</p>
@@ -50,7 +49,7 @@ avoids giving <em>advice</em> that isn't clearly enforceable (whether by human o
 <h3 id="s1.2-guide-notes">1.2 Guide notes</h3>
 
 <p>Example code in this document is <strong>non-normative</strong>. That is, while the examples
-are in Google Style, they may not illustrate the <em>only</em> stylish way to represent the
+are in Apex Style, they may not illustrate the <em>only</em> stylish way to represent the
 code. Optional formatting choices made in examples should not be enforced as rules.</p>
 
 
@@ -60,7 +59,7 @@ code. Optional formatting choices made in examples should not be enforced as rul
 
 <p>The source file name consists of the case-sensitive name of the top-level class it contains
 (of which there is <a href="#s3.4.1-one-top-level-class">exactly one</a>), plus the
-<code>.java</code> extension.</p>
+<code>.cls</code> extension.</p>
 
 <h3 id="s2.2-file-encoding">2.2 File encoding: UTF-8</h3>
 
@@ -148,6 +147,10 @@ Unicode characters are used, an explanatory comment can be very helpful.</p>
 some programs might not handle non-ASCII characters properly. If that should happen, those
 programs are <strong>broken</strong> and they must be <strong>fixed</strong>.</p>
 
+<h4 id="s2.3.34-soql-strings">2.3.4 SOQL Quoted String Escape Sequences</h4>
+
+<p>SOQL defines <a href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_select_quotedstringescapes.htm">several escape sequences</a> 
+  that are valid in queries so that you can include special characters in your queries.</p>
 
 <a name="filestructure"></a>
 <h2 id="s3-source-file-structure">3 Source file structure</h2>
@@ -156,71 +159,28 @@ programs are <strong>broken</strong> and they must be <strong>fixed</strong>.</p
 <p>A source file consists of, <strong>in order</strong>:</p>
 
 <ol>
-  <li>License or copyright information, if present</li>
-  <li>Package statement</li>
-  <li>Import statements</li>
+  <li>Top-level ApexDoc comments</li>
   <li>Exactly one top-level class</li>
 </ol>
 </div>
 
-<p><strong>Exactly one blank line</strong> separates each section that is present.</p>
+<p><strong>No blank lines</strong> separate each section that is present.</p>
 
-<h3 id="s3.1-copyright-statement">3.1 License or copyright information, if present</h3>
+<h3 id="s3.1-copyright-statement">3.1 Top-level ApexDoc comments</h3>
 
-<p>If license or copyright information belongs in a file, it belongs here.</p>
-
-
-
-<h3 id="s3.2-package-statement">3.2 Package statement</h3>
-
-<p>The package statement is <strong>not line-wrapped</strong>. The column limit (Section 4.4,
-<a href="#s4.4-column-limit">Column limit: 100</a>) does not apply to package statements.</p>
-
-<a name="imports"></a>
-<h3 id="s3.3-import-statements">3.3 Import statements</h3>
-
-<h4 id="s3.3.1-wildcard-imports">3.3.1 No wildcard imports</h4>
-
-<p><strong>Wildcard imports</strong>, static or otherwise, <strong>are not used</strong>.</p>
-
-<h4 id="s3.3.2-import-line-wrapping">3.3.2 No line-wrapping</h4>
-
-<p>Import statements are <strong>not line-wrapped</strong>. The column limit (Section 4.4,
-<a href="#s4.4-column-limit">Column limit: 100</a>) does not apply to import
-statements.</p>
-
-<h4 id="s3.3.3-import-ordering-and-spacing">3.3.3 Ordering and spacing</h4>
-
-<p>Imports are ordered as follows:</p>
-
-<ol>
-  <li>All static imports in a single block.</li>
-  <li>All non-static imports in a single block.</li>
-</ol>
-
-<p>If there are both static and non-static imports, a single blank line separates the two
-blocks. There are no other blank lines between import statements.</p>
-
-<p>Within each block the imported names appear in ASCII sort order. (<strong>Note:</strong>
-this is not the same as the import <em>statements</em> being in ASCII sort order, since '.'
-sorts before ';'.)</p>
+<p>Each top-level <code>global</code> or <code>public</code> class starts with an 
+  ApexDoc on the first line, containing a high level description of its purpose.</p>
 
 
-
-<h4 id="s3.3.4-import-class-not-static">3.3.4 No static import for classes</h4>
-
-<p>Static import is not used for static nested classes. They are imported with
-normal imports.</p>
-
-<h3 id="s3.4-class-declaration">3.4 Class declaration</h3>
+<h3 id="s3.2-class-declaration">3.2 Class declaration</h3>
 
 <a name="oneclassperfile"></a>
-<h4 id="s3.4.1-one-top-level-class">3.4.1 Exactly one top-level class declaration</h4>
+<h4 id="s3.2.1-one-top-level-class">3.2.1 Exactly one top-level class declaration</h4>
 
 <p>Each top-level class resides in a source file of its own.</p>
 
-<a name="s3.4.2-class-member-ordering"></a>
-<h4 id="s3.4.2-ordering-class-contents">3.4.2 Ordering of class contents</h4>
+<a name="s3.2.2-class-member-ordering"></a>
+<h4 id="s3.2.2-ordering-class-contents">3.4.2 Ordering of class contents</h4>
 
 <p>The order you choose for the members and initializers of your class can have a great effect on
 learnability. However, there's no single correct recipe for how to do it; different classes may
@@ -234,7 +194,7 @@ ordering.</p>
 
 
 <a name="overloads"></a>
-<h5 id="s3.4.2.1-overloads-never-split">3.4.2.1 Overloads: never split</h5>
+<h5 id="s3.2.2.1-overloads-never-split">3.4.2.1 Overloads: never split</h5>
 
 <p>When a class has multiple constructors, or multiple methods with the same name, these appear
 sequentially, with no other code in between (not even private members).</p>
@@ -280,27 +240,20 @@ for <em>nonempty</em> blocks and block-like constructs:</p>
 
 <p>Examples:</p>
 
-<pre class="prettyprint lang-java">return () -&gt; {
-  while (condition()) {
-    method();
-  }
-};
-
-return new MyClass() {
-  @Override public void method() {
-    if (condition()) {
-      try {
-        something();
-      } catch (ProblemException e) {
-        recover();
-      }
-    } else if (otherCondition()) {
-      somethingElse();
-    } else {
-      lastThing();
+<pre class="prettyprint lang-java">
+public void method() {
+  if (condition()) {
+    try {
+      something();
+    } catch (ProblemException e) {
+      recover();
     }
+  } else if (otherCondition()) {
+    somethingElse();
+  } else {
+    lastThing();
   }
-};
+}
 </pre>
 
 <p>A few exceptions for enum classes are given in Section 4.8.1,
@@ -346,7 +299,7 @@ applies to both code and comments throughout the block. (See the example in Sect
 <a name="columnlimit"></a>
 <h3 id="s4.4-column-limit">4.4 Column limit: 100</h3>
 
-<p>Java code has a column limit of 100 characters. A "character" means any Unicode code point.
+<p>Apex code has a column limit of 100 characters. A "character" means any Unicode code point.
 Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in
 Section 4.5, <a href="#s4.5-line-wrapping">Line-wrapping</a>.
 </p>
@@ -359,14 +312,7 @@ you may choose to wrap the line earlier than where this rule strictly requires.<
 <p><strong>Exceptions:</strong></p>
 
 <ol>
-  <li>Lines where obeying the column limit is not possible (for example, a long URL in Javadoc,
-  or a long JSNI method reference).</li>
-
-  <li><code class="prettyprint lang-java">package</code> and
-  <code class="prettyprint lang-java">import</code> statements (see Sections
-  3.2 <a href="#s3.2-package-statement">Package statement</a> and
-  3.3 <a href="#s3.3-import-statements">Import statements</a>).</li>
-
+  <li>Lines where obeying the column limit is not possible (for example, a long URL in ApexDoc).</li>
   <li>Command lines in a comment that may be cut-and-pasted into a shell.</li>
 </ol>
 
@@ -393,7 +339,7 @@ without the need to line-wrap.</p>
 
 <ol>
   <li>When a line is broken at a <em>non-assignment</em> operator the break comes <em>before</em>
-  the symbol. (Note that this is not the same practice used in Google style for other languages,
+  the symbol. (Note that this is not the same practice used in Apex style for other languages,
   such as C++ and JavaScript.)
     <ul>
       <li>This also applies to the following "operator-like" symbols:
@@ -421,20 +367,22 @@ without the need to line-wrap.</p>
   <li>A method or constructor name stays attached to the open parenthesis
   (<code class="prettyprint lang-java">(</code>) that follows it.</li>
 
-  <li>A comma (<code class="prettyprint lang-java">,</code>) stays attached to the token that
+  <li>A comma (<code class="prettyprint lang-sql">,</code>) stays attached to the token that
   precedes it.</li>
 
-  <li>A line is never broken adjacent to the arrow in a lambda, except that a
-  break may come immediately after the arrow if the body of the lambda consists
-  of a single unbraced expression. Examples:
-<pre class="prettyprint lang-java">MyLambda&lt;String, Long, Object&gt; lambda =
-    (String label, Long value, Object obj) -&gt; {
-        ...
-    };
+  <li>Optionally, before reserved keywords in SOQL or SOSL statements.<pre class="prettyprint lang-java">
+List&lt;Account&gt; accounts = [SELECT Id, Name from Account WHERE CreatedDate = :last_week];
 
-Predicate&lt;String&gt; predicate = str -&gt;
-    longExpressionInvolving(str);
-</pre>
+List&lt;Account&gt; accounts = [
+    SELECT
+        Id, Name
+    FROM Account
+    WHERE CreatedDate = :this_week
+    AND Id IN (
+        SELECT AccountId FROM Opportunity where CreatedDate = :this_week
+    )
+    ORDER BY CreatedDate DESC
+];</pre>
   </li>
 </ol>
 
@@ -488,7 +436,7 @@ discouraged.
 <h4 id="s4.6.2-horizontal-whitespace">4.6.2 Horizontal whitespace</h4>
 
 <p>Beyond where required by the language or other style rules, and apart from literals, comments and
-Javadoc, a single ASCII space also appears in the following places <strong>only</strong>.</p>
+Apexdoc, a single ASCII space also appears in the following places <strong>only</strong>.</p>
 
 <ol>
   <li>Separating any reserved word, such as
@@ -503,43 +451,20 @@ Javadoc, a single ASCII space also appears in the following places <strong>only<
   <code class="prettyprint lang-java">catch</code>, from a closing curly brace
   (<code class="prettyprint lang-java">}</code>) that precedes it on that line</li>
 
-  <li>Before any open curly brace
-  (<code class="prettyprint lang-java">{</code>), with two exceptions:
-  <ul>
-    <li><code class="prettyprint lang-java">@SomeAnnotation({a, b})</code> (no space is used)</li>
-
-    <li><code class="prettyprint lang-java">String[][] x = {{"foo"}};</code> (no space is required
-    between <code class="prettyprint lang-java">{{</code>, by item 8 below)</li>
-  </ul>
-  </li>
-
   <li>On both sides of any binary or ternary operator. This also applies to the following
   "operator-like" symbols:
   <ul>
-    <li>the ampersand in a conjunctive type bound:
-    <code class="prettyprint lang-java">&lt;T extends Foo &amp; Bar&gt;</code></li>
-
-    <li>the pipe for a catch block that handles multiple exceptions:
-    <code class="prettyprint lang-java">catch (FooException | BarException e)</code></li>
-
     <li>the colon (<code class="prettyprint lang-java">:</code>) in an enhanced
-    <code class="prettyprint lang-java">for</code> ("foreach") statement</li>
-
-    <li>the arrow in a lambda expression:
-    <code class="prettyprint lang-java">(String str) -&gt; str.length()</code></li>
+    <code class="prettyprint lang-java">for</code> statement</li>
   </ul>
     but not
-
   <ul>
-    <li>the two colons (<code class="prettyprint lang-java">::</code>) of a method reference, which
-    is written like <code class="prettyprint lang-java">Object::toString</code></li>
     <li>the dot separator (<code class="prettyprint lang-java">.</code>), which is written like
     <code class="prettyprint lang-java">object.toString()</code></li>
+    <li>the colon (<code class="prettyprint lang-java">:</code>) preceding a variable binds in SOQL or SOSL statements, which is written like
+    <code class="prettyprint lang-java">B = [SELECT Id FROM Account WHERE Id = :A.Id];</code></li>
   </ul>
   </li>
-
-  <li>After <code class="prettyprint lang-java">,:;</code> or the closing parenthesis
-  (<code class="prettyprint lang-java">)</code>) of a cast</li>
 
   <li>On both sides of the double slash (<code class="prettyprint lang-java">//</code>) that
   begins an end-of-line comment. Here, multiple spaces are allowed, but not required.</li>
@@ -549,13 +474,10 @@ Javadoc, a single ASCII space also appears in the following places <strong>only<
 
   <li><em>Optional</em> just inside both braces of an array initializer
   <ul>
-    <li><code class="prettyprint lang-java">new int[] {5, 6}</code> and
-    <code class="prettyprint lang-java">new int[] { 5, 6 }</code> are both valid</li>
+    <li><code class="prettyprint lang-java">new Integer[] {5, 6}</code> and
+    <code class="prettyprint lang-java">new Integer[] { 5, 6 }</code> are both valid</li>
   </ul>
   </li>
-
-  <li>Between a type annotation and <code class="prettyprint lang-java">[]</code> or
-  <code class="prettyprint lang-java">...</code>.</li>
 </ol>
 
 <p>This rule is never interpreted as requiring or forbidding additional space at the start or
@@ -567,16 +489,16 @@ end of a line; it addresses only <em>interior</em> space.</p>
 practice of adding a variable number of additional spaces in your code with the goal of making
 certain tokens appear directly below certain other tokens on previous lines.</p>
 
-<p>This practice is permitted, but is <strong>never required</strong> by Google Style. It is not
+<p>This practice is permitted, but is <strong>never required</strong> by Apex Style. It is not
 even required to <em>maintain</em> horizontal alignment in places where it was already used.</p>
 
 <p>Here is an example without alignment, then using alignment:</p>
 
-<pre class="prettyprint lang-java">private int x; // this is fine
-private Color color; // this too
+<pre class="prettyprint lang-java">private Integer x; // this is fine
+private AbstractTriggerFactory factory; // this too
 
-private int   x;      // permitted, but future edits
-private Color color;  // may leave it unaligned
+private Integer                x; // permitted, but future edits
+private AbstractTriggerFactory factory; // may leave it unaligned
 </pre>
 
 <p class="tip"><strong>Tip:</strong> Alignment can aid readability, but it creates problems for
@@ -592,7 +514,7 @@ information, slows down reviewers and exacerbates merge conflicts.</p>
 
 <p>Optional grouping parentheses are omitted only when author and reviewer agree that there is no
 reasonable chance the code will be misinterpreted without them, nor would they have made the code
-easier to read. It is <em>not</em> reasonable to assume that every reader has the entire Java
+easier to read. It is <em>not</em> reasonable to assume that every reader has the entire Apex
 operator precedence table memorized.</p>
 
 <h3 id="s4.8-specific-constructs">4.8 Specific constructs</h3>
@@ -603,11 +525,7 @@ operator precedence table memorized.</p>
 lines (usually just one) are also allowed. This is one possibility:
 
 </p><pre class="prettyprint lang-java">private enum Answer {
-  YES {
-    @Override public String toString() {
-      return "yes";
-    }
-  },
+  YES,
 
   NO,
   MAYBE
@@ -628,8 +546,7 @@ as if it were an array initializer (see Section 4.8.3.1 on
 
 <h5 id="s4.8.2.1-variables-per-declaration">4.8.2.1 One variable per declaration</h5>
 
-<p>Every variable declaration (field or local) declares only one variable: declarations such as
-<code class="badcode">int a, b;</code> are not used.</p>
+<p>Every variable declaration (field or local) declares only one variable.</p>
 
 <p><strong>Exception:</strong> Multiple variable declarations are acceptable in the header of a
 <code class="prettyprint lang-java">for</code> loop.</p>
@@ -649,32 +566,24 @@ initializers, or are initialized immediately after declaration.</p>
 construct." For example, the following are all valid (<strong>not</strong> an exhaustive
 list):</p>
 
-<pre class="prettyprint lang-java">new int[] {           new int[] {
-  0, 1, 2, 3            0,
-}                       1,
-                        2,
-new int[] {             3,
-  0, 1,               }
-  2, 3
-}                     new int[]
-                          {0, 1, 2, 3}
+<pre class="prettyprint lang-java">List&lt;String&gt; example = new List&lt;String&gt; {
+    'one', 'two', 'three'
+};
+
+List&lt;String&gt; example = new List&lt;String&gt; {
+    'one',
+    'two',
+    'three'
+};
 </pre>
 
-<h5 id="s4.8.3.2-array-declarations">4.8.3.2 No C-style array declarations</h5>
-
-<p>The square brackets form a part of the <em>type</em>, not the variable:
-<code class="prettyprint lang-java">String[] args</code>, not
-<code class="badcode">String args[]</code>.</p>
 
 <h4 id="s4.8.4-switch">4.8.4 Switch statements</h4>
 
-
-
 <p class="terminology"><strong>Terminology Note:</strong> Inside the braces of a
 <em>switch block</em> are one or more <em>statement groups</em>. Each statement group consists of
-one or more <em>switch labels</em> (either <code class="prettyprint lang-java">case FOO:</code> or
-<code class="prettyprint lang-java">default:</code>), followed by one or more statements (or, for
-the <em>last</em> statement group, <em>zero</em> or more statements).</p>
+one or more <em>switch labels</em> (either <code class="prettyprint lang-java">when FOO</code> or
+<code class="prettyprint lang-java">when else</code>), followed by one or more statements.</p>
 
 <h5 id="s4.8.4.1-switch-indentation">4.8.4.1 Indentation</h5>
 
@@ -684,43 +593,10 @@ the <em>last</em> statement group, <em>zero</em> or more statements).</p>
 as if a block were being opened. The following switch label returns to the previous indentation
 level, as if a block had been closed.</p>
 
-<a name="fallthrough"></a>
-<h5 id="s4.8.4.2-switch-fall-through">4.8.4.2 Fall-through: commented</h5>
+<h5 id="s4.8.4.2-switch-default">4.8.4.2 The <code>default</code> case is present</h5>
 
-<p>Within a switch block, each statement group either terminates abruptly (with a
-<code class="prettyprint lang-java">break</code>,
-<code class="prettyprint lang-java">continue</code>,
-<code class="prettyprint lang-java">return</code> or thrown exception), or is marked with a comment
-to indicate that execution will or <em>might</em> continue into the next statement group. Any
-comment that communicates the idea of fall-through is sufficient (typically
-<code class="prettyprint lang-java">// fall through</code>). This special comment is not required in
-the last statement group of the switch block. Example:</p>
-
-<pre class="prettyprint lang-java">switch (input) {
-  case 1:
-  case 2:
-    prepareOneOrTwo();
-    // fall through
-  case 3:
-    handleOneTwoOrThree();
-    break;
-  default:
-    handleLargeNumber(input);
-}
-</pre>
-
-<p>Notice that no comment is needed after <code class="prettyprint lang-java">case 1:</code>, only
-at the end of the statement group.</p>
-
-<h5 id="s4.8.4.3-switch-default">4.8.4.3 The <code>default</code> case is present</h5>
-
-<p>Each switch statement includes a <code class="prettyprint lang-java">default</code> statement
+<p>Each switch statement includes the default <code class="prettyprint lang-java">when else</code> statement
 group, even if it contains no code.</p>
-
-<p><strong>Exception:</strong> A switch statement for an <code>enum</code> type <em>may</em> omit
-the <code class="prettyprint lang-java">default</code> statement group, <em>if</em> it includes
-explicit cases covering <em>all</em> possible values of that type. This enables IDEs or other static
-analysis tools to issue a warning if any cases were missed.
 
 </p>
 
@@ -733,22 +609,20 @@ per line). These line breaks do not constitute line-wrapping (Section
 4.5, <a href="#s4.5-line-wrapping">Line-wrapping</a>), so the indentation level is not
 increased. Example:</p>
 
-<pre class="prettyprint lang-java">@Override
-@Nullable
+<pre class="prettyprint lang-java">@AuraEnabled
 public String getNameIfPresent() { ... }
 </pre>
 
 <p class="exception"><strong>Exception:</strong> A <em>single</em> parameterless annotation
 <em>may</em> instead appear together with the first line of the signature, for example:</p>
 
-<pre class="prettyprint lang-java">@Override public int hashCode() { ... }
+<pre class="prettyprint lang-java">@isTest static void test_user_access() { ... }
 </pre>
 
-<p>Annotations applying to a field also appear immediately after the documentation block, but in
-this case, <em>multiple</em> annotations (possibly parameterized) may be listed on the same line;
+<p>Annotations applying to a field also appear immediately after the documentation block,
 for example:</p>
 
-<pre class="prettyprint lang-java">@Partial @Mock DataLoader loader;
+<pre class="prettyprint lang-java">@AuraEnabled public String nameValue;
 </pre>
 
 <p>There are no specific rules for formatting annotations on parameters, local variables, or types.
@@ -757,8 +631,8 @@ for example:</p>
 <a name="comments"></a>
 <h4 id="s4.8.6-comments">4.8.6 Comments</h4>
 
-<p>This section addresses <em>implementation comments</em>. Javadoc is addressed separately in
-Section 7, <a href="#s7-javadoc">Javadoc</a>.</p>
+<p>This section addresses <em>implementation comments</em>. Apexdoc is addressed separately in
+Section 7, <a href="#s7-apexdoc">Apexdoc</a>.</p>
 
 <p>Any line break may be preceded by arbitrary whitespace followed by an implementation comment.
 Such a comment renders the line non-blank.</p>
@@ -791,11 +665,10 @@ re-wrap the lines when necessary (paragraph-style). Most formatters don't re-wra
 <h4 id="s4.8.7-modifiers">4.8.7 Modifiers</h4>
 
 <p>Class and member modifiers, when present, appear in the order
-recommended by the Java Language Specification:
+recommended by the Apex Language Specification:
 </p>
 
-<pre>public protected private abstract default static final transient volatile synchronized native strictfp
-</pre>
+<pre>private | public | global [virtual | abstract | with sharing | without sharing]</pre>
 
 <h4 id="s4.8.8-numeric-literals">4.8.8 Numeric Literals</h4>
 
@@ -812,20 +685,13 @@ rather than <code class="badcode">3000000000l</code>.</p>
 underscores. Thus each valid identifier name is matched by the regular expression
 <code>\w+</code> .</p>
 
-<p>In Google Style, special prefixes or suffixes are <strong>not</strong> used. For example, these
-names are not Google Style: <code class="badcode">name_</code>, <code class="badcode">mName</code>,
+<p>In Apex Style, special prefixes or suffixes are <strong>not</strong> used. For example, these
+names are not Apex Style: <code class="badcode">name_</code>, <code class="badcode">mName</code>,
 <code class="badcode">s_name</code> and <code class="badcode">kName</code>.</p>
 
 <h3 id="s5.2-specific-identifier-names">5.2 Rules by identifier type</h3>
 
-<h4 id="s5.2.1-package-names">5.2.1 Package names</h4>
-
-<p>Package names are all lowercase, with consecutive words simply concatenated together (no
-underscores). For example, <code>com.example.deepspace</code>, not
-<code class="badcode">com.example.deepSpace</code> or
-<code class="badcode">com.example.deep_space</code>.</p>
-
-<h4 id="s5.2.2-class-names">5.2.2 Class names</h4>
+<h4 id="s5.2.1-class-names">5.2.1 Class names</h4>
 
 <p>Class names are written in <a href="#s5.3-camel-case">UpperCamelCase</a>.</p>
 
@@ -843,7 +709,7 @@ with <code class="prettyprint lang-java">Test</code>. For example,
 <code class="prettyprint lang-java">HashTest</code> or
 <code class="prettyprint lang-java">HashIntegrationTest</code>.</p>
 
-<h4 id="s5.2.3-method-names">5.2.3 Method names</h4>
+<h4 id="s5.2.2-method-names">5.2.2 Method names</h4>
 
 <p>Method names are written in <a href="#s5.3-camel-case">lowerCamelCase</a>.</p>
 
@@ -851,14 +717,14 @@ with <code class="prettyprint lang-java">Test</code>. For example,
 <code class="prettyprint lang-java">sendMessage</code> or
 <code class="prettyprint lang-java">stop</code>.</p>
 
-<p>Underscores may appear in JUnit <em>test</em> method names to separate logical components of the
+<p>Underscores may appear in Apex <em>test</em> method names to separate logical components of the
 name, with <em>each</em> component written in <a href="#s5.3-camel-case">lowerCamelCase</a>.
-One typical pattern is <code><i>&lt;methodUnderTest&gt;</i>_<i>&lt;state&gt;</i></code>,
-for example <code class="prettyprint lang-java">pop_emptyStack</code>. There is no One Correct
+One typical pattern is <code><i>&lt;methodUnderTest&gt;</i>_<i>&lt;state&gt;</i>_<i>&lt;expectation&gt;</i></code>,
+for example <code class="prettyprint lang-java">save_accountName_throw_exception</code>. There is no One Correct
 Way to name test methods.</p>
 
 <a name="constants"></a>
-<h4 id="s5.2.4-constant-names">5.2.4 Constant names</h4>
+<h4 id="s5.2.3-constant-names">5.2.3 Constant names</h4>
 
 <p>Constant names use <code class="prettyprint lang-java">CONSTANT_CASE</code>: all uppercase
 letters, with each word separated from the next by a single underscore. But what <em>is</em> a
@@ -870,27 +736,20 @@ collections of immutable types. If any of the instance's observable state can ch
 constant. Merely <em>intending</em> to never mutate the object is not enough. Examples:</p>
 
 <pre class="prettyprint lang-java">// Constants
-static final int NUMBER = 5;
-static final ImmutableList&lt;String&gt; NAMES = ImmutableList.of("Ed", "Ann");
-static final ImmutableMap&lt;String, Integer&gt; AGES = ImmutableMap.of("Ed", 35, "Ann", 32);
-static final Joiner COMMA_JOINER = Joiner.on(','); // because Joiner is immutable
-static final SomeMutableType[] EMPTY_ARRAY = {};
-enum SomeEnum { ENUM_CONSTANT }
+public static final Integer NUMBER = 5;
+public static final List&lt;String&gt; NAMES = List.of("Ed", "Ann");
+public static final Map&lt;String, Integer&gt; AGES = newMap&lt;String, Integer&gt;{ "Ed" =>35, "Ann" => 32 };
+public enum SomeEnum { ENUM_CONSTANT }
 
 // Not constants
-static String nonFinal = "non-final";
-final String nonStatic = "non-static";
-static final Set&lt;String&gt; mutableCollection = new HashSet&lt;String&gt;();
-static final ImmutableSet&lt;SomeMutableType&gt; mutableElements = ImmutableSet.of(mutable);
-static final ImmutableMap&lt;String, SomeMutableType&gt; mutableValues =
-    ImmutableMap.of("Ed", mutableInstance, "Ann", mutableInstance2);
-static final Logger logger = Logger.getLogger(MyClass.getName());
-static final String[] nonEmptyArray = {"these", "can", "change"};
+private static String nonFinal = "non-final";
+private final String nonStatic = "non-static";
+private static final Set&lt;String&gt; mutableCollection = new Set&lt;String&gt;();
 </pre>
 
 <p>These names are typically nouns or noun phrases.</p>
 
-<h4 id="s5.2.5-non-constant-field-names">5.2.5 Non-constant field names</h4>
+<h4 id="s5.2.4-non-constant-field-names">5.2.4 Non-constant field names</h4>
 
 <p>Non-constant field names (static or otherwise) are written
 in <a href="#s5.3-camel-case">lowerCamelCase</a>.</p>
@@ -899,35 +758,18 @@ in <a href="#s5.3-camel-case">lowerCamelCase</a>.</p>
 <code class="prettyprint lang-java">computedValues</code> or
 <code class="prettyprint lang-java">index</code>.</p>
 
-<h4 id="s5.2.6-parameter-names">5.2.6 Parameter names</h4>
+<h4 id="s5.2.5-parameter-names">5.2.5 Parameter names</h4>
 
 <p>Parameter names are written in <a href="#s5.3-camel-case">lowerCamelCase</a>.</p>
 
 <p>One-character parameter names in public methods should be avoided.</p>
 
-<h4 id="s5.2.7-local-variable-names">5.2.7 Local variable names</h4>
+<h4 id="s5.2.6-local-variable-names">5.2.6 Local variable names</h4>
 
 <p>Local variable names are written in <a href="#s5.3-camel-case">lowerCamelCase</a>.</p>
 
 <p>Even when final and immutable, local variables are not considered to be constants, and should not
 be styled as constants.</p>
-
-<h4 id="s5.2.8-type-variable-names">5.2.8 Type variable names</h4>
-
-<p>Each type variable is named in one of two styles:</p>
-
-<ul>
-  <li>A single capital letter, optionally followed by a single numeral (such as
-  <code class="prettyprint lang-java">E</code>, <code class="prettyprint lang-java">T</code>,
-  <code class="prettyprint lang-java">X</code>, <code class="prettyprint lang-java">T2</code>)
-  </li>
-
-  <li>A name in the form used for classes (see Section 5.2.2,
-  <a href="#s5.2.2-class-names">Class names</a>), followed by the capital letter
-  <code class="prettyprint lang-java">T</code> (examples:
-  <code class="prettyprint lang-java">RequestT</code>,
-  <code class="prettyprint lang-java">FooBarT</code>).</li>
-</ul>
 
 <a name="acronyms"></a>
 <a name="camelcase"></a>
@@ -935,7 +777,7 @@ be styled as constants.</p>
 
 <p>Sometimes there is more than one reasonable way to convert an English phrase into camel case,
 such as when acronyms or unusual constructs like "IPv6" or "iOS" are present. To improve
-predictability, Google Style specifies the following (nearly) deterministic scheme.</p>
+predictability, Apex Style specifies the following (nearly) deterministic scheme.</p>
 
 <p>Beginning with the prose form of the name:</p>
 
@@ -1011,19 +853,9 @@ language: for example "nonempty" and "non-empty" are both correct, so the method
 
 <h2 id="s6-programming-practices">6 Programming Practices</h2>
 
-<h3 id="s6.1-override-annotation">6.1 <code>@Override</code>: always used</h3>
-
-<p>A method is marked with the <code class="prettyprint lang-java">@Override</code> annotation
-whenever it is legal.  This includes a class method overriding a superclass method, a class method
-implementing an interface method, and an interface method respecifying a superinterface
-method.</p>
-
-<p class="exception"><strong>Exception:</strong>
-<code class="prettyprint lang-java">@Override</code> may be omitted when the parent method is
-<code class="prettyprint lang-java">@Deprecated</code>.</p>
 
 <a name="caughtexceptions"></a>
-<h3 id="s6.2-caught-exceptions">6.2 Caught exceptions: not ignored</h3>
+<h3 id="s6.1-caught-exceptions">6.1 Caught exceptions: not ignored</h3>
 
 <p>Except as noted below, it is very rarely correct to do nothing in response to a caught
 exception. (Typical responses are to log it, or if it is considered "impossible", rethrow it as an
@@ -1053,7 +885,7 @@ exception of the expected type, so a comment is unnecessary here.</p>
 }
 </pre>
 
-<h3 id="s6.3-static-members">6.3 Static members: qualified using class</h3>
+<h3 id="s6.2-static-members">6.2 Static members: qualified using class</h3>
 
 <p>When a reference to a static class member must be qualified, it is qualified with that class's
 name, not with a reference or expression of that class's type.</p>
@@ -1064,67 +896,36 @@ Foo.aStaticMethod(); // good
 <span class="badcode">somethingThatYieldsAFoo().aStaticMethod();</span> // very bad
 </pre>
 
-<a name="finalizers"></a>
-<h3 id="s6.4-finalizers">6.4 Finalizers: not used</h3>
-
-<p>It is <strong>extremely rare</strong> to override <code class="prettyprint
-lang-java">Object.finalize</code>.</p>
-
-<p class="tip"><strong>Tip:</strong> Don't do it. If you absolutely must, first read and understand
-
-
-  <a href="http://books.google.com/books?isbn=8131726592"><em>Effective Java</em> Item 7,</a>
-
-"Avoid Finalizers," very carefully, and <em>then</em> don't do it.</p>
-
-
-<a name="javadoc"></a>
-<h2 id="s7-javadoc">7 Javadoc</h2>
+<a name="apexdoc"></a>
+<h2 id="s7-apexdoc">7 ApexDoc</h2>
 
 
 
-<h3 id="s7.1-javadoc-formatting">7.1 Formatting</h3>
+<h3 id="s7.1-apexdoc-formatting">7.1 Formatting</h3>
 
-<h4 id="s7.1.1-javadoc-multi-line">7.1.1 General form</h4>
+<h4 id="s7.1.1-apexdoc-multi-line">7.1.1 General form</h4>
 
-<p>The <em>basic</em> formatting of Javadoc blocks is as seen in this example:</p>
+<p>The <em>basic</em> formatting of Apexdoc blocks is as seen in this example:</p>
 
 <pre class="prettyprint lang-java">/**
- * Multiple lines of Javadoc text are written here,
+ * Multiple lines of Apexdoc text are written here,
  * wrapped normally...
  */
-public int method(String p1) { ... }
+public Integer method(String p1) { ... }
 </pre>
 
 <p>... or in this single-line example:</p>
 
-<pre class="prettyprint lang-java">/** An especially short bit of Javadoc. */
+<pre class="prettyprint lang-java">/** An especially short bit of Apexdoc. */
 </pre>
 
 <p>The basic form is always acceptable. The single-line form may be substituted when the entirety
-of the Javadoc block (including comment markers) can fit on a single line. Note that this only
+of the Apexdoc block (including comment markers) can fit on a single line. Note that this only
 applies when there are no block tags such as <code>@return</code>.
-
-</p><h4 id="s7.1.2-javadoc-paragraphs">7.1.2 Paragraphs</h4>
-
-<p>One blank line&#8212;that is, a line containing only the aligned leading asterisk
-(<code>*</code>)&#8212;appears between paragraphs, and before the group of block tags if
-present. Each paragraph but the first has <code>&lt;p&gt;</code> immediately before the first word,
-with no space after.</p>
-
-<a name="s7.1.3-javadoc-at-clauses"></a>
-
-<h4 id="s7.1.3-javadoc-block-tags">7.1.3 Block tags</h4>
-
-<p>Any of the standard "block tags" that are used appear in the order <code>@param</code>,
-<code>@return</code>, <code>@throws</code>, <code>@deprecated</code>, and these four types never
-appear with an empty description. When a block tag doesn't fit on a single line, continuation lines
-are indented four (or more) spaces from the position of the <code>@</code>.
-</p>
 
 <h3 id="s7.2-summary-fragment">7.2 The summary fragment</h3>
 
-<p>Each Javadoc block begins with a brief <strong>summary fragment</strong>. This
+<p>Each Apexdoc block begins with a brief <strong>summary fragment</strong>. This
 fragment is very important: it is the only part of the text that appears in certain contexts such as
 class and method indexes.</p>
 
@@ -1134,25 +935,25 @@ class and method indexes.</p>
 like <code class="badcode">Save the record.</code>. However, the fragment is capitalized and
 punctuated as if it were a complete sentence.</p>
 
-<p class="tip"><strong>Tip:</strong> A common mistake is to write simple Javadoc in the form
+<p class="tip"><strong>Tip:</strong> A common mistake is to write simple Apexdoc in the form
 <code class="badcode">/** @return the customer ID */</code>. This is incorrect, and should be
 changed to <code class="prettyprint lang-java">/** Returns the customer ID. */</code>.</p>
 
-<a name="s7.3.3-javadoc-optional"></a> 
-<h3 id="s7.3-javadoc-where-required">7.3 Where Javadoc is used</h3>
+<a name="s7.3.3-apexdoc-optional"></a> 
+<h3 id="s7.3-apexdoc-where-required">7.3 Where Apexdoc is used</h3>
 
-<p>At the <em>minimum</em>, Javadoc is present for every
+<p>At the <em>minimum</em>, Apexdoc is present for every
 <code class="prettyprint lang-java">public</code> class, and every
 <code class="prettyprint lang-java">public</code> or
 <code class="prettyprint lang-java">protected</code> member of such a class, with a few exceptions
 noted below.</p>
 
-<p>Additional Javadoc content may also be present, as explained in Section 7.3.4,
-<a href="#s7.3.4-javadoc-non-required">Non-required Javadoc</a>.</p>
+<p>Additional Apexdoc content may also be present, as explained in Section 7.3.4,
+<a href="#s7.3.4-apexdoc-non-required">Non-required Apexdoc</a>.</p>
 
-<h4 id="s7.3.1-javadoc-exception-self-explanatory">7.3.1 Exception: self-explanatory methods</h4>
+<h4 id="s7.3.1-apexdoc-exception-self-explanatory">7.3.1 Exception: self-explanatory methods</h4>
 
-<p>Javadoc is optional for "simple, obvious" methods like
+<p>Apexdoc is optional for "simple, obvious" methods like
 <code class="prettyprint lang-java">getFoo</code>, in cases where there <em>really and truly</em> is
 nothing else worthwhile to say but "Returns the foo".</p>
 
@@ -1163,22 +964,22 @@ named <code class="prettyprint lang-java">getCanonicalName</code>, don't omit it
 <code class="badcode">/** Returns the canonical name. */</code>) if a typical reader may have no idea
 what the term "canonical name" means!</p>
 
-<h4 id="s7.3.2-javadoc-exception-overrides">7.3.2 Exception: overrides</h4>
+<h4 id="s7.3.2-apexdoc-exception-overrides">7.3.2 Exception: overrides</h4>
 
-<p>Javadoc is not always present on a method that overrides a supertype method.
+<p>Apexdoc is not always present on a method that overrides a supertype method.
 
 </p>
 
 
 
-<h4 id="s7.3.4-javadoc-non-required">7.3.4 Non-required Javadoc</h4>
+<h4 id="s7.3.4-apexdoc-non-required">7.3.4 Non-required Apexdoc</h4>
 
-<p>Other classes and members have Javadoc <em>as needed or desired</em>.
+<p>Other classes and members have Apexdoc <em>as needed or desired</em>.
 
 </p><p>Whenever an implementation comment would be used to define the overall purpose or behavior of a
-class or member, that comment is written as Javadoc instead (using <code>/**</code>).</p>
+class or member, that comment is written as Apexdoc instead (using <code>/**</code>).</p>
 
-<p>Non-required Javadoc is not strictly required to follow the formatting rules of Sections
+<p>Non-required Apexdoc is not strictly required to follow the formatting rules of Sections
 7.1.2, 7.1.3, and 7.2, though it is of course recommended.</p>
 
  
