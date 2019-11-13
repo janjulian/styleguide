@@ -7,6 +7,7 @@
 <script language="javascript" src="include/styleguide.js"></script>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </head>
+<body onload="initStyleGuide();">
 <div id="content">
 <h1>Apex Style Guide</h1>
 <div class="vertical_toc" id="tocDiv"></div>
@@ -32,7 +33,7 @@ avoids giving <em>advice</em> that isn't clearly enforceable (whether by human o
 
 <ol>
   <li>The term <em>class</em> is used inclusively to mean an "ordinary" class, enum class,
-  interface or annotation type (<code class="prettyprint lang-java">@interface</code>).</li>
+  or interface.</li>
 
   <li>The term <em>member</em> (of a class) is used inclusively to mean a nested class, field,
   method, <em>or constructor</em>; that is, all top-level contents of a class except initializers
@@ -980,7 +981,47 @@ class or member, that comment is written as Apexdoc instead (using <code>/**</co
 <p>Non-required Apexdoc is not strictly required to follow the formatting rules of Sections
 7.1.2, 7.1.3, and 7.2, though it is of course recommended.</p>
 
- 
+<a name="testing"></a>
+<h2 id="s8-testing">8 Testing</h2>
+
+<h3 id="s8.1-test-class-decl">8.1 Class declarations</h3>
+<p>Annotate test classes with <code>@isTest</code>. Test classes are declared as <code>private</code>.
+
+<pre class="prettyprint lang-java">
+@isTest 
+private class ControllerTest {
+  ...
+}  
+</pre>
+
+<h3 id="s8.2-test-method-decl">8.2 Method declarations</h3>
+Annotate each test method with <code>@isTest</code>. <code>private</code> modifier is not required.
+<pre class="prettyprint lang-java">
+@isTest 
+static void save_name_with_exception() {
+  ...
+}  
+</pre>
+
+<h3 id="s8.3-test-see-all-data">8.3 SeeAllData parameter : generally disabled</h3>
+Avoid using the <code>@isTest(seeAllData=true)</code> unless absolutely necessary.
+
+<h3 id="s8.4-test-start-stop">8.3 Test start and stop</h3>
+Other than controlling governor limits, use <code>Test.startTest()</code> and <code>Test.stopTest()</code> methods 
+to clearly demarcate to the reader the block of code being tested.
+
+<pre class="prettyprint lang-java">
+@isTest 
+static void save_name_successfully() {
+  // ... setup test data here ..
+
+  Test.startTest();
+  Opportunities.saveName(name);
+  Test.stopTest();
+
+  // ... assertions here ...
+}  
+</pre>
 
 </div> 
 </div>
